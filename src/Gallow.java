@@ -1,21 +1,5 @@
-import org.w3c.dom.ls.LSOutput;
-
 public class Gallow {
-    private int count;
-
-    public Gallow(int count) {
-        this.count = count;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public void drawGallow() {
+    public void drawGallow(int userErrorsCounter) {
         /*
         |____________
         |      |
@@ -24,33 +8,34 @@ public class Gallow {
         |     / \
         |
          */
+
         System.out.println("|____________");
-        if (count > 0) {
+        if (userErrorsCounter > 0) {
             System.out.println("|      |");
         } else {
             System.out.println("|      ");
         }
 
-        if (count > 1) {
+        if (userErrorsCounter > 1) {
             System.out.println("|      0");
         } else {
             System.out.println("|      ");
         }
 
-        if (count > 4) {
+        if (userErrorsCounter > 4) {
             System.out.println("|     /|\\");
-        } else if (count > 3) {
+        } else if (userErrorsCounter > 3) {
             System.out.println("|     /|");
-        } else if (count > 2) {
+        } else if (userErrorsCounter > 2) {
             System.out.println("|      |");
         } else {
             System.out.println("|      ");
         }
 
 
-        if (count > 6) {
+        if (userErrorsCounter > 6) {
             System.out.println("|     / \\");
-        } else if (count > 5) {
+        } else if (userErrorsCounter > 5) {
             System.out.println("|     / ");
         } else {
             System.out.println("|      ");

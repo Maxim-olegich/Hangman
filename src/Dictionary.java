@@ -1,19 +1,17 @@
-import org.w3c.dom.ls.LSOutput;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class Dictionary {
-    private int fileLines;
-    private File nouns = new File("nouns.txt");
+    private final int fileLines;
+    private final File nouns = new File("nouns.txt");
 
     public Dictionary() {
-        this.fileLines = countLines();
+        this.fileLines = countFileLines();
     }
 
-    public String getWord() {
+    public String getRandomWord() {
         int randomInt = (int)(Math.random() * fileLines);
         String word = "";
 
@@ -29,7 +27,7 @@ public class Dictionary {
         return word;
     }
 
-    private int countLines() {
+    private int countFileLines() {
         int count = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(nouns))){
             while (reader.readLine() != null) {
