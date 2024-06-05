@@ -1,3 +1,5 @@
+package com.olegich.hangman;
+
 import java.util.Scanner;
 
 public class Main {

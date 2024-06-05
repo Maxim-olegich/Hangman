@@ -1,3 +1,5 @@
+package com.olegich.hangman;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
