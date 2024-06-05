@@ -5,23 +5,27 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Game {
+    private static final int DEAD_LEVEL = 7;
+    private static final String MASK_SYMBOL = "_";
     private final List<String> usedLetters = new ArrayList<>();
     private static final Gallow gallow = new Gallow();
     private String hiddenWord;// 'hiddenWord' its underline '______'
     private int userErrorsCounter = 0;
 
     public void start(String guessedWord) {
-        hiddenWord = "_".repeat(guessedWord.length());
+        hiddenWord = MASK_SYMBOL.repeat(guessedWord.length());
         gallow.drawGallow(userErrorsCounter);
 
-        while (hiddenWord.contains("_")) {
+        while (hiddenWord.contains(MASK_SYMBOL)) {
             System.out.println();
-            if (userErrorsCounter == 7) {
+            if (isDead(userErrorsCounter)) {
                 break;
             }
 
             Scanner scanner = new Scanner(System.in);
-            System.out.print("Progress: " + hiddenWord + ". Input a cyrillic letter: ");
+            System.out.println("Progress: " + hiddenWord +
+                    ". The used letters: " + String.join(", ", usedLetters));
+            System.out.print("Input a cyrillic letter: ");
             String letter = scanner.nextLine().toLowerCase();
             if (isInputValid(letter)) {
                 printTurnResults(guessedWord, letter.charAt(0));
@@ -29,6 +33,10 @@ public class Game {
             }
         }
         printRoundResult(userErrorsCounter, guessedWord);
+    }
+
+    public boolean isDead(int userErrorsCounter) {
+        return userErrorsCounter == DEAD_LEVEL;
     }
 
     public void printTurnResults(String guessedWord, char letter) {
@@ -64,9 +72,10 @@ public class Game {
     }
 
     public void printRoundResult(int gameScore, String guessedWord) {
-        if (gameScore < 7) System.out.println("\nThe word was: " + guessedWord +
-                "\nCongrats! You have won this game! ");
-        else {
+        if (gameScore < DEAD_LEVEL) {
+            System.out.println("\nThe word was: " + guessedWord +
+                    "\nCongrats! You have won this game! ");
+        } else {
             System.out.println("\nThe word was: " + guessedWord +
                     "\nSorry. You have lost this game :( ");
         }
