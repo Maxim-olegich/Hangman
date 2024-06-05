@@ -17,7 +17,7 @@ public class Main {
 //                System.out.println("The guessedWord is: " + guessedWord);
                 System.out.println("The length of the guessed word is: " + guessedWord.length());
                 Game game = new Game();
-                game.startGame(guessedWord);
+                game.start(guessedWord);
             } else if (line.equals("в")) {
                 System.out.println("So, goodbye!");
                 break;

@@ -7,14 +7,14 @@ import java.util.Scanner;
 public class Game {
     private final List<String> usedLetters = new ArrayList<>();
     private static final Gallow gallow = new Gallow();
-    private StringBuilder hiddenWord;// 'hiddenWord' its underline '______'
+    private String hiddenWord;// 'hiddenWord' its underline '______'
     private int userErrorsCounter = 0;
 
-    public void startGame(String guessedWord) {
-        hiddenWord = getHiddenWord(guessedWord.length());
+    public void start(String guessedWord) {
+        hiddenWord = "_".repeat(guessedWord.length());
         gallow.drawGallow(userErrorsCounter);
 
-        while (hiddenWord.indexOf("_") != -1) {
+        while (hiddenWord.contains("_")) {
             System.out.println();
             if (userErrorsCounter == 7) {
                 break;
@@ -23,15 +23,16 @@ public class Game {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Progress: " + hiddenWord + ". Input a cyrillic letter: ");
             String letter = scanner.nextLine().toLowerCase();
-            if (checkUserInput(letter)) {
-                printTurnResults(guessedWord, letter.toCharArray()[0]);
+            if (isInputValid(letter)) {
+                printTurnResults(guessedWord, letter.charAt(0));
+                usedLetters.add(letter);
             }
         }
         printRoundResult(userErrorsCounter, guessedWord);
     }
 
     public void printTurnResults(String guessedWord, char letter) {
-        StringBuilder wordWithGuessedLetters =
+        String wordWithGuessedLetters =
                 getGuessedLetters(hiddenWord, guessedWord, letter);
 
         if (wordWithGuessedLetters.compareTo(hiddenWord) == 0) {
@@ -44,12 +45,12 @@ public class Game {
         }
     }
 
-    public boolean checkUserInput(String userInput) {
+    public boolean isInputValid(String userInput) {
         if (userInput.length() > 1 || userInput.isBlank()) {
             System.out.println("[ERROR] Please input only one letter!");
             return false;
         }
-        if (!(userInput.charAt(0) >= 'а' && userInput.charAt(0) <= 'я')) {
+        if (userInput.charAt(0) < 'а' || userInput.charAt(0) > 'я') {
             System.out.println("[ERROR] Please input a cyrillic letter.");
             return false;
         }
@@ -59,37 +60,26 @@ public class Game {
             return false;
         }
 
-        usedLetters.add(userInput);
         return true;
     }
 
     public void printRoundResult(int gameScore, String guessedWord) {
-        if (gameScore < 7) System.out.println("\nCongrats! You have won this game! " +
-                "The guessed word was: " + guessedWord);
+        if (gameScore < 7) System.out.println("\nThe word was: " + guessedWord +
+                "\nCongrats! You have won this game! ");
         else {
-            System.out.println("\nSorry. You have lost this game :( " +
-                    "The guessed word was: " + guessedWord);
+            System.out.println("\nThe word was: " + guessedWord +
+                    "\nSorry. You have lost this game :( ");
         }
     }
 
-    // Transform the guessedWord into _____ based on its length
-    public StringBuilder getHiddenWord(int length) {
-        StringBuilder hiddenWord = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            hiddenWord.append("_");
-        }
-
-        return hiddenWord;
-    }
-
-    public StringBuilder getGuessedLetters(StringBuilder hiddenWord, String word, char letter) {
-        StringBuilder result = new StringBuilder(hiddenWord.toString());
+    public String getGuessedLetters(String hiddenWord, String word, char letter) {
+        StringBuilder result = new StringBuilder(hiddenWord);
         for (int i = 0; i < word.length(); i++) {
             if (word.charAt(i) == letter) {
                 result.setCharAt(i, letter);
             }
         }
 
-        return result;
+        return result.toString();
     }
 }
