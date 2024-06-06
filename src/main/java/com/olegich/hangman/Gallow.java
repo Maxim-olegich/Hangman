@@ -14,7 +14,7 @@ public class Gallow {
         System.out.print(getHangman(userErrorsCounter));
     }
 
-    public String getHangman(int userErrorsCounter) {
+    private String getHangman(int userErrorsCounter) {
         return switch (userErrorsCounter) {
             case 1 -> """
                     |____________

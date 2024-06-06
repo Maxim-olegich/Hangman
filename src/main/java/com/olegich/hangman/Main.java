@@ -13,11 +13,11 @@ public class Main {
             String line = scanner.nextLine().toLowerCase();
             if (line.equals("н")) {
                 System.out.println("Okay, let's play!");
-                String guessedWord = dictionary.getRandomWord().toLowerCase();
-//                System.out.println("The guessedWord is: " + guessedWord);
-                System.out.println("The length of the guessed word is: " + guessedWord.length());
+                String guessableWord = dictionary.getRandomWord().toLowerCase();
+//                System.out.println("The guessableWord is: " + guessableWord);
+                System.out.println("The length of the guessed word is: " + guessableWord.length());
                 Game game = new Game();
-                game.start(guessedWord);
+                game.start(guessableWord);
             } else if (line.equals("в")) {
                 System.out.println("So, goodbye!");
                 break;
